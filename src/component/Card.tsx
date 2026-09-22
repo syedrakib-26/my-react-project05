@@ -1,6 +1,5 @@
-import React from "react";
-import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 
 import { FaReact, FaVuejs, FaNodeJs, FaJs, FaJava, FaDocker,} from "react-icons/fa";
@@ -13,152 +12,24 @@ import type { Tech } from "../Type";
 
 
 
-const technologies = [
-  {
-    id: 1,
-    name: "React",
-    icon: <FaReact />,
-    description:
-      "A declarative, component-based JavaScript library for building modern user interfaces.",
-    category: "Frontend",
-    level: "Beginner-Friendly",
-    rating: 4.9,
-    badge: "Popular",
-    badgeColor: "blue",
-  },
-  {
-    id: 2,
-    name: "Vue.js",
-    icon: <FaVuejs />,
-    description:
-      "An approachable, performant, and versatile framework for building web user interfaces.",
-    category: "Frontend",
-    level: "Beginner-Friendly",
-    rating: 4.8,
-    badge: "Versatile",
-    badgeColor: "green",
-  },
-  {
-    id: 3,
-    name: "Svelte",
-    icon: <RiSvelteFill />,
-    description:
-      "Cybernetically enhanced web apps with compile-time reactivity and zero virtual DOM overhead.",
-    category: "Frontend",
-    level: "Intermediate",
-    rating: 4.8,
-    badge: "Fast",
-    badgeColor: "orange",
-  },
-  {
-    id: 4,
-    name: "Next.js",
-    icon: <RiNextjsFill />,
-    description:
-      "The React framework for full-stack web applications with hybrid static & server rendering.",
-    category: "Frontend",
-    level: "Intermediate",
-    rating: 4.9,
-    badge: "SSR / Edge",
-    badgeColor: "purple",
-  },
-  {
-    id: 5,
-    name: "Node.js",
-    icon: <FaNodeJs />,
-    description:
-      "An asynchronous event-driven JavaScript runtime built on Chrome's V8 engine.",
-    category: "Backend",
-    level: "Intermediate",
-    rating: 4.8,
-    badge: "Standard",
-    badgeColor: "green",
-  },
-  {
-    id: 6,
-    name: "PostgreSQL",
-    icon: <BiLogoPostgresql />,
-    description:
-      "A powerful, open-source object-relational database system with proven reliability.",
-    category: "Database",
-    level: "Intermediate",
-    rating: 4.9,
-    badge: "Top SQL",
-    badgeColor: "blue",
-  },
-  {
-    id: 7,
-    name: "Redis",
-    icon: <DiRedis />,
-    description:
-      "In-memory data structure store used as a high-speed database, cache, and message broker.",
-    category: "Database",
-    level: "Intermediate",
-    rating: 4.8,
-    badge: "Cache",
-    badgeColor: "red",
-  },
-  {
-    id: 8,
-    name: "JavaScript",
-    icon: <FaJs />,
-    description:
-      "The versatile, ubiquitous scripting language powering dynamic behavior across the web.",
-    category: "Language",
-    level: "Beginner-Friendly",
-    rating: 4.9,
-    badge: "Ubiquitous",
-    badgeColor: "yellow",
-  },
-  {
-    id: 9,
-    name: "TypeScript",
-    icon: <BiLogoTypescript />,
-    description:
-      "A strongly typed programming language that builds on JavaScript for robust tooling.",
-    category: "Language",
-    level: "Intermediate",
-    rating: 4.9,
-    badge: "Essential",
-    badgeColor: "blue",
-  },
-  {
-    id: 10,
-    name: "Java",
-    icon: <FaJava />,
-    description:
-      "A secure, object-oriented programming language designed for portability and scale.",
-    category: "Language",
-    level: "Intermediate",
-    rating: 4.6,
-    badge: "Robust",
-    badgeColor: "blue",
-  },
-  {
-    id: 11,
-    name: "Tailwind CSS",
-    icon: <BiLogoTailwindCss />,
-    description:
-      "A utility-first CSS framework packed with classes that can be composed to build custom UI.",
-    category: "Styling",
-    level: "Beginner-Friendly",
-    rating: 4.9,
-    badge: "Modern",
-    badgeColor: "cyan",
-  },
-  {
-    id: 12,
-    name: "Docker",
-    icon: <FaDocker />,
-    description:
-      "A platform designed to build, share, and run containerized applications reliably.",
-    category: "DevOps",
-    level: "Intermediate",
-    rating: 4.9,
-    badge: "Containers",
-    badgeColor: "cyan",
-  },
-];
+const icons ={
+  React:<FaReact />,
+  "Vue.js": <FaVuejs />,
+  Svelte: <RiSvelteFill />,
+  "Next.js":<RiNextjsFill />,
+  "Node.js":<FaNodeJs />,
+  PostgreSQL: <BiLogoPostgresql />,
+  Redis:<DiRedis />,
+  JavaScript: <FaJs />,
+  TypeScript: <BiLogoTypescript />,
+  Java: <FaJava />,
+  TailwindCSS: <BiLogoTailwindCss />,
+  Docker: <FaDocker />,
+
+};
+
+
+
 
 interface TechnologyCardProps {
   tech: Tech;
@@ -187,6 +58,15 @@ const badgeClasses: Record<string, string> = {
 
 const Card = () => {
   const [stack, setStack] = useState<Tech[]>([]);
+
+  const [technologies, setTechnologies] = useState<Tech[]>([]);
+
+
+useEffect(() => {
+  fetch("/data.json")
+    .then((res) => res.json())
+    .then((data) => setTechnologies(data));
+}, []);
 
   const addToStack = (tech: Tech) => {
     if (!tech) {
@@ -385,7 +265,7 @@ function TechIcon({ tech, small = false }: TechIconProps) {
 
   return (
     <div className={`flex ${iconSize} items-center justify-center rounded-lg bg-slate-50 font-bold text-slate-700`}>
-      {tech.icon}
+      {icons[tech.name as keyof typeof icons]}
 
   
     </div>
