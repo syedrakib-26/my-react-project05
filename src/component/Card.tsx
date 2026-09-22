@@ -1,12 +1,23 @@
-import React from 'react';
+import React from "react";
 import { useState } from "react";
 
-
-import { FaReact, FaVuejs, FaNodeJs, FaJs, FaJava, FaDocker } from "react-icons/fa";
+import { FaReact, FaVuejs, FaNodeJs, FaJs, FaJava, FaDocker,} from "react-icons/fa";
 import { RiSvelteFill, RiNextjsFill } from "react-icons/ri";
-import { BiLogoPostgresql, BiLogoTailwindCss, BiLogoTypescript } from "react-icons/bi";
+import { BiLogoPostgresql, BiLogoTailwindCss, BiLogoTypescript} from "react-icons/bi";
 import { DiRedis } from "react-icons/di";
+import type { Tech } from "../Type";
 
+
+interface TechnologycardProps {
+  tech: Tech;
+  selected: boolean;
+  onAdd: () => void;
+  small?: boolean;
+}
+interface TechIconProps {
+  tech: Tech;
+  small?: boolean;
+}
 
 const technologies = [
   {
@@ -155,7 +166,7 @@ const technologies = [
   },
 ];
 
-const badgeClasses = {
+const badgeClasses: Record<string, string> = {
   blue: "bg-blue-50 text-blue-500",
   green: "bg-emerald-50 text-emerald-500",
   orange: "bg-orange-50 text-orange-500",
@@ -166,29 +177,23 @@ const badgeClasses = {
 };
 
 const Card = () => {
+  const [stack, setStack] = useState<Tech[]>([]);
 
-const [stack, setStack] = useState([]);
-
-  const addToStack = (tech) => {
-    // Don't add the same technology twice
-    if (stack.some((item) => item.id === tech.id)) {
+  const addToStack = (tech: Tech) => {
+    if (!tech) {
       return;
     }
 
-    // Only one technology per category
-    const categoryExists = stack.some(
-      (item) => item.category === tech.category
-    );
+    const alreadySelected = stack.some((item) => item.id === tech.id);
 
-    if (categoryExists) {
-      alert(`You already selected a ${tech.category} technology.`);
+    if (alreadySelected) {
       return;
     }
 
     setStack([...stack, tech]);
   };
 
-  const removeFromStack = (id) => {
+  const removeFromStack = (id: number) => {
     setStack(stack.filter((item) => item.id !== id));
   };
 
@@ -196,27 +201,22 @@ const [stack, setStack] = useState([]);
     setStack([]);
   };
 
-  const isSelected = (id) => {
+  const isSelected = (id: number) => {
     return stack.some((item) => item.id === id);
   };
 
-    return (
-        <div className="min-h-screen bg-white px-5 py-8 md:px-10 lg:px-20">
-      {/* Header */}
+  return (
+    <div className="min-h-screen bg-white px-5 py-8 md:px-10 lg:px-20">
       <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
-          Explore the{" "}
-          <span className="text-pink-500">Technologies</span>
+          Explore the <span className="text-pink-500">Technologies</span>
         </h1>
 
         <p className="mt-2 text-sm text-slate-400">
           Pick one technology per category to build your ideal stack.
         </p>
       </div>
-
-      {/* Main Layout */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_250px]">
-        {/* Technology Grid */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {technologies.map((tech) => (
             <TechnologyCard
@@ -228,17 +228,13 @@ const [stack, setStack] = useState([]);
           ))}
         </div>
 
-        {/* Stack Sidebar */}
         <div className="h-fit rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
-          <h2 className="text-sm font-bold text-slate-900">
-            Your Stack
-          </h2>
+          <h2 className="text-sm font-bold text-slate-900">Your Stack</h2>
 
           <p className="mb-4 text-xs text-slate-400">
             {stack.length} Technology Selected
           </p>
 
-          {/* Selected Technologies */}
           <div className="space-y-2">
             {stack.length === 0 ? (
               <div className="rounded-lg border border-dashed border-slate-200 py-8 text-center">
@@ -269,9 +265,7 @@ const [stack, setStack] = useState([]);
                   <button
                     onClick={() => removeFromStack(tech.id)}
                     className="text-lg text-slate-400 transition hover:text-red-500"
-                  >
-                    ×
-                  </button>
+                  ></button>
                 </div>
               ))
             )}
@@ -282,27 +276,19 @@ const [stack, setStack] = useState([]);
             onClick={removeAll}
             disabled={stack.length === 0}
             className={`mt-4 w-full rounded-lg border py-2.5 text-sm font-semibold transition ${
-              stack.length === 0
-                ? "cursor-not-allowed border-slate-100 text-slate-300"
-                : "border-red-200 text-red-500 hover:bg-red-50"
-            }`}
-          >
-            Remove All
-          </button>
+              stack.length === 0 ? "cursor-not-allowed border-slate-100 text-slate-300" : "border-red-200 text-red-500 hover:bg-red-50" }`}> Remove All</button>
         </div>
       </div>
     </div>
   );
-}
+};
 
 /* Technology Card */
-function TechnologyCard({ tech, selected, onAdd }) {
+function TechnologyCard({ tech, selected, onAdd }: TechnologycardProps) {
   return (
     <div
       className={`rounded-2xl border bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md ${
-        selected
-          ? "border-pink-300 ring-1 ring-pink-100"
-          : "border-slate-100"
+        selected ? "border-pink-300 ring-1 ring-pink-100" : "border-slate-100"
       }`}
     >
       {/* Top Row */}
@@ -319,9 +305,7 @@ function TechnologyCard({ tech, selected, onAdd }) {
       </div>
 
       {/* Name */}
-      <h2 className="text-lg font-bold text-slate-800">
-        {tech.name}
-      </h2>
+      <h2 className="text-lg font-bold text-slate-800">{tech.name}</h2>
 
       {/* Description */}
       <p className="mt-2 min-h-[60px] text-xs leading-5 text-slate-400">
@@ -339,8 +323,7 @@ function TechnologyCard({ tech, selected, onAdd }) {
         </span>
 
         <span className="text-xs font-semibold text-slate-600">
-          <span className="text-yellow-400">★</span>{" "}
-          {tech.rating}
+          <span className="text-yellow-400">★</span> {tech.rating}
         </span>
       </div>
 
@@ -361,7 +344,7 @@ function TechnologyCard({ tech, selected, onAdd }) {
 }
 
 /* Technology Icon */
-function TechIcon({ tech, small = false }) {
+function TechIcon({ tech, small = false }: TechIconProps) {
   const iconSize = small ? "h-8 w-8 text-xs" : "h-9 w-9 text-sm";
 
   return (
