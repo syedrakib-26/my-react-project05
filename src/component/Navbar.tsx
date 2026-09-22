@@ -19,8 +19,8 @@ const Navbar = () => {
 
             </div>
             <div className="flex items-center gap-5">
-                <button className="text-gray-600">Sign In</button>
-                <button className="bg-pink-500 text-white px-6 py-3 rounded-full">Sign Up</button>
+                <button className="text-gray-600 px-6 py-3 rounded-full hover:bg-pink-800">Sign In</button>
+                <button className="bg-pink-500 text-white px-6 py-3 rounded-full hover:shadow-lg hover:scale-125 hover:bg-pink-800">Sign Up</button>
             </div>
         </nav>
     );

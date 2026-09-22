@@ -357,7 +357,7 @@ function TechnologyCard({ tech, selected, onAdd }: TechnologyCardProps) {
 
         <span className="flex items-center gap-1 text-xs font-semibold text-slate-600">
 
-          <CiStar className="text-base shrink-0 text-yellow-500 "/> 
+          <CiStar className="text-base text-yellow-500 "/> 
 
           <span>{tech.rating}</span>
         </span>

@@ -25,7 +25,7 @@ const Hero = () => {
 
             <div className="mt-10 flex flex-wrap gap-4">
               <button
-                className="rounded-lg bg-linear-to-r from-orange-500 to-pink-500 px-6 py-3 font-semibold text-white shadow-md hover:shadow">Explore Technologies</button>
+                className="rounded-lg bg-linear-to-r from-orange-500 to-pink-500 px-6 py-3 font-semibold text-white shadow-md hover:shadow-lg hover:scale-120 hover:from-orange-600 hover:via-pink-600 hover:to-pink-600">Explore Technologies</button>
 
               <button className="rounded-lg border border-slate-200 bg-white  px-8 py-3 text-sm font-medium text-slate-600">
                 Learn More</button>
