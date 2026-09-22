@@ -28,11 +28,11 @@ const Footer = () => {
 
 
             <div className="mt-6 flex lg:justify-start items-center justify-center gap-5">
-              <a href="#" className="text-sm font-medium text-gray-700 transition hover:text-pink-500"> GitHub </a>
+              <a href="https://github.com/" target="_blank" className="text-sm font-medium text-gray-700 transition hover:text-pink-500"> GitHub </a>
 
-              <a href="#" className="text-sm font-medium text-gray-700 transition hover:text-pink-500"> Twitter </a>
+              <a href="https://x.com/" target="_blank" className="text-sm font-medium text-gray-700 transition hover:text-pink-500"> Twitter </a>
 
-              <a href="#" className="text-sm font-medium text-gray-700 transition hover:text-pink-500" > LinkedIn </a>
+              <a href="https://www.linkedin.com/" target="_blank" className="text-sm font-medium text-gray-700 transition hover:text-pink-500" > LinkedIn </a>
 
             </div>
 
