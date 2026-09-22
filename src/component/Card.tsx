@@ -1,11 +1,15 @@
 import React from "react";
 import { useState } from "react";
 
+import { toast, ToastContainer } from "react-toastify";
+
+
 import { FaReact, FaVuejs, FaNodeJs, FaJs, FaJava, FaDocker,} from "react-icons/fa";
 import { RiSvelteFill, RiNextjsFill } from "react-icons/ri";
 import { BiLogoPostgresql, BiLogoTailwindCss, BiLogoTypescript} from "react-icons/bi";
 import { DiRedis } from "react-icons/di";
 import type { Tech } from "../Type";
+
 
 
 interface TechnologycardProps {
@@ -187,26 +191,50 @@ const Card = () => {
     const alreadySelected = stack.some((item) => item.id === tech.id);
 
     if (alreadySelected) {
+        toast.warning(`${tech.name} is already selected!`);
       return;
     }
 
     setStack([...stack, tech]);
+    toast.success(`${tech.name} added to your stack!`);
   };
 
   const removeFromStack = (id: number) => {
+    const removedTech = stack.find(
+    (item) => item.id === id
+  );
     setStack(stack.filter((item) => item.id !== id));
-  };
+
+
+  if (removedTech) {
+    toast.info(`${removedTech.name} removed from your stack.`);
+  
+}
+};
 
   const removeAll = () => {
-    setStack([]);
-  };
+     if (stack.length === 0) {
+    toast.warning("Your stack is already empty!");
+    return;
+  }
+
+  setStack([]);
+
+  toast.info("All technologies removed.");
+};
+
 
   const isSelected = (id: number) => {
     return stack.some((item) => item.id === id);
   };
 
   return (
+
+
     <div className="min-h-screen bg-white px-5 py-8 md:px-10 lg:px-20">
+
+
+
       <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
           Explore the <span className="text-pink-500">Technologies</span>
@@ -219,13 +247,9 @@ const Card = () => {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_250px]">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {technologies.map((tech) => (
-            <TechnologyCard
-              key={tech.id}
-              tech={tech}
-              selected={isSelected(tech.id)}
-              onAdd={() => addToStack(tech)}
-            />
-          ))}
+            <TechnologyCard key={tech.id} tech={tech}  selected={isSelected(tech.id)}
+              onAdd={() => addToStack(tech)} />
+     ))}
         </div>
 
         <div className="h-fit rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
@@ -238,9 +262,7 @@ const Card = () => {
           <div className="space-y-2">
             {stack.length === 0 ? (
               <div className="rounded-lg border border-dashed border-slate-200 py-8 text-center">
-                <p className="text-xs text-slate-400">
-                  No technologies selected
-                </p>
+                <p className="text-xs text-slate-400"> No technologies selected </p>
               </div>
             ) : (
               stack.map((tech) => (
@@ -266,6 +288,10 @@ const Card = () => {
                     onClick={() => removeFromStack(tech.id)}
                     className="text-lg text-slate-400 transition hover:text-red-500"
                   ></button>
+
+                 <button onClick={() => removeFromStack(tech.id)} className="text-lg text-slate-400 transition hover:text-red-500"
+                    title={`Remove ${tech.name}`}> × </button>
+
                 </div>
               ))
             )}
@@ -352,6 +378,8 @@ function TechIcon({ tech, small = false }: TechIconProps) {
       className={`flex ${iconSize} items-center justify-center rounded-lg bg-slate-50 font-bold text-slate-700`}
     >
       {tech.icon}
+
+  
     </div>
   );
 }
