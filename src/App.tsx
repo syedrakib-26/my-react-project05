@@ -1,26 +1,22 @@
-
-import Navbar from './component/Navbar';
-import Hero from './component/Hero';
-import Card from './component/Card';
-import { ToastContainer } from 'react-toastify';
-
+import Navbar from "./component/Navbar";
+import Hero from "./component/Hero";
+import Card from "./component/Card";
+import { ToastContainer } from "react-toastify";
+import Footer from "./component/Footer";
+import Bottom from "./component/Bottom";
 
 function App() {
- 
-
   return (
     <>
       <Navbar />
       <Hero />
       <Card />
-      <ToastContainer position="top-right" autoClose={2000} />
+      <ToastContainer position="top-right" autoClose={50} />
 
-    <div className="min-h-screen bg-white px-5 py-8">
-      {/* your existing code */}
-    </div>
-
+      <Footer />
+      <Bottom/>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
