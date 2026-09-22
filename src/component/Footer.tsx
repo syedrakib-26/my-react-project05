@@ -27,7 +27,7 @@ const Footer = () => {
               building modern software. </p>
 
 
-            <div className="mt-6 flex items-center gap-5">
+            <div className="mt-6 flex lg:justify-start items-center justify-center gap-5">
               <a href="#" className="text-sm font-medium text-gray-700 transition hover:text-pink-500"> GitHub </a>
 
               <a href="#" className="text-sm font-medium text-gray-700 transition hover:text-pink-500"> Twitter </a>

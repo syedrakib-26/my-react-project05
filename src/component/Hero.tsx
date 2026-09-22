@@ -6,6 +6,7 @@ const Hero = () => {
         <div>
     
     <section className="bg-white flex items-center">
+  
       <div className="max-w-8xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-14">
 
