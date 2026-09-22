@@ -1,5 +1,3 @@
-// import React from 'react'
-
 
 import { useState } from "react";
 
@@ -16,8 +14,6 @@ const Navbar = () => {
     <nav className="relative flex items-center justify-between border-b border-gray-100 bg-white px-5 py-4 sm:px-8 lg:px-16">
 
 
-
-      {/* Mobile Hamburger */}
       <button
         onClick={() => setMenuOpen(!menuOpen)} className="flex flex-col gap-1.5 lg:hidden" aria-label="Toggle menu">
 
@@ -101,8 +97,12 @@ const Navbar = () => {
 
     
           </ul>
+
+
         </div>
       )}
+
+
     </nav>
   );
 };
