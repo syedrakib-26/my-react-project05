@@ -9,7 +9,7 @@ const Footer = () => {
 
       <div className="mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-0">
   
-        {/* <div className="grid grid-cols-1 gap-10 md:grid-cols-4 md:gap-8"> */}
+
         <div className="grid grid-cols-1 gap-10 md:grid-cols-4 md:gap-8 items-center text-center lg:items-start lg:text-left">
           
 
